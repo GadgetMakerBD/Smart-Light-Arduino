@@ -29,7 +29,7 @@
 - IN → Arduino Digital Pin 7
 
 🔹 **AC Light:**
-- Live → Relay এর COM (Common)  
+- AC Live → Relay এর COM (Common)  
 - NO (Normally Open) → Light  
 - Light এর অন্য প্রান্ত → AC Neutral
 
@@ -42,21 +42,26 @@
 Arduino কোডটি LDR সেন্সর থেকে আলো পাওয়া যাচ্ছেনা বুঝলে রিলে চালু করে এবং লাইট অন করে। আলো থাকলে রিলে বন্ধ হয় এবং লাইট বন্ধ হয়ে যায়।
 
 ```cpp
-#define Sensor 8
-#define RELAY_PIN 7
+// Pin Definitions
+const int sensorPin = 8;       // Digital LDR sensor output pin
+const int relayPin = 7;        // Relay control pin
 
 void setup() {
-  pinMode(Sensor, INPUT);
-  pinMode(RELAY_PIN, OUTPUT);
-  digitalWrite(RELAY_PIN, HIGH);
+  pinMode(sensorPin, INPUT);
+  pinMode(relayPin, OUTPUT);
+
+  digitalWrite(relayPin, HIGH); // Start with relay OFF (assuming LOW-triggered)
 }
 
 void loop() {
-  int status_sensor = digitalRead(Sensor);
-  if (status_sensor == 1) {
-    digitalWrite(RELAY_PIN, LOW);
+  bool isLight = digitalRead(sensorPin); // 1 = light, 0 = dark
+
+  if (isLight) {
+    digitalWrite(relayPin, LOW);  // Light detected → turn ON relay
   } else {
-    digitalWrite(RELAY_PIN, HIGH);
+    digitalWrite(relayPin, HIGH); // Darkness → turn OFF relay
   }
-  delay(100);
+
+  delay(100); // Delay for stability
 }
+
