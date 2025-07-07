@@ -39,7 +39,8 @@
 
 ## 🔌 সার্কিট ডায়াগ্রাম:
 
-![Smart Light Circuit Diagram]()
+![Smart Light Circuit Diagram](circuit-diagram.png.jpg)
+
 
 ---
 
